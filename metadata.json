@@ -5,7 +5,7 @@
         "48",
         "49"
     ],
-    "uuid": "clipboard-indicator@v0001",
+    "uuid": "clipboard-indicator-plus",
     "name": "Clipboard Indicator",
     "description": "The most popular clipboard manager for GNOME, with over 1M downloads",
     "url": "https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator",

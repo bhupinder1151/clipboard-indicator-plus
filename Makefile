@@ -1,5 +1,5 @@
 MODULES = *.js locale/*/LC_MESSAGES/*.mo metadata.json stylesheet.css LICENSE.rst README.rst schemas/
-INSTALLPATH=~/.local/share/gnome-shell/extensions/clipboard-indicator@v0001/
+INSTALLPATH=~/.local/share/gnome-shell/extensions/clipboard-indicator-plus/
 
 all: compile-locales compile-settings
 

@@ -60,13 +60,13 @@ In-Menu Keyboard Controls
 
 Clone and install::
 
-    $ git clone <this-repo> ~/.local/share/gnome-shell/extensions/clipboard-indicator@v0001
-    $ cd ~/.local/share/gnome-shell/extensions/clipboard-indicator@v0001
+    $ git clone <this-repo> ~/.local/share/gnome-shell/extensions/clipboard-indicator-plus
+    $ cd ~/.local/share/gnome-shell/extensions/clipboard-indicator-plus
     $ make compile-settings
 
 Enable the extension::
 
-    $ gnome-extensions enable clipboard-indicator@v0001
+    $ gnome-extensions enable clipboard-indicator-plus
 
 **Requirements for QR feature:**
 
