@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-21 16:41+0300\n"
+"POT-Creation-Date: 2026-01-04 20:30+0530\n"
 "PO-Revision-Date: 2024-01-27 14:47+0800\n"
 "Last-Translator: hiiiha\n"
 "Language-Team: \n"
@@ -22,218 +22,341 @@ msgstr ""
 "X-Poedit-SearchPath-0: prefs.js\n"
 "X-Poedit-SearchPath-1: extension.js\n"
 
-#: extension.js:108
+#: confirmDialog.js:112
+msgid "QR Code (URL)"
+msgstr "二维码 (链接)"
+
+#: confirmDialog.js:112
+msgid "QR Code"
+msgstr "二维码"
+
+#: confirmDialog.js:138
+msgid "Scan QR or type URL on same WiFi network"
+msgstr "在同一 WiFi 网络扫描二维码或输入链接"
+
+#: confirmDialog.js:156
+msgid "Close"
+msgstr "关闭"
+
+#: confirmDialog.js:165
+msgid "Save to Downloads"
+msgstr "保存到下载"
+
+#: extension.js:114
 msgid "Text will be here"
 msgstr "文本将在此处显示"
 
-#: extension.js:181
+#: extension.js:190
 msgid "Type here to search..."
 msgstr "在此输入以搜索…"
 
-#: extension.js:250 prefs.js:220
+#: extension.js:259 prefs.js:319
 msgid "Private mode"
 msgstr "隐私模式"
 
-#: extension.js:264 prefs.js:222
+#: extension.js:273 prefs.js:321
 msgid "Clear history"
 msgstr "清空历史"
 
-#: extension.js:276
+#: extension.js:318
 msgid "Settings"
 msgstr "设置"
 
-#: extension.js:299
+#: extension.js:341
 msgid "Clipboard is empty"
 msgstr "剪贴板为空"
 
-#: extension.js:571
+#: extension.js:657
+msgid "Failed to start text server"
+msgstr ""
+
+#: extension.js:668
+msgid "Failed to generate QR code. Is qrencode installed?"
+msgstr ""
+
+#: extension.js:673
 msgid "Clear all?"
 msgstr "清除所有记录吗？"
 
-#: extension.js:572
+#: extension.js:674
 msgid "Are you sure you want to delete all clipboard items?"
 msgstr "确定要删除所有剪贴板条目吗？"
 
-#: extension.js:573
+#: extension.js:675
 msgid "This operation cannot be undone."
 msgstr "此操作不可撤销。"
 
-#: extension.js:575
+#: extension.js:677
 msgid "Clear"
 msgstr "清除"
 
-#: extension.js:575 extension.js:740
+#: extension.js:677 extension.js:848
 msgid "Cancel"
 msgstr "取消"
 
-#: extension.js:588
+#: extension.js:692
 msgid "Clipboard history cleared"
 msgstr "剪贴板已清空"
 
-#: extension.js:739
+#: extension.js:695
+#, fuzzy
+msgid "Clipboard history cleared automatically"
+msgstr "剪贴板已清空"
+
+#: extension.js:847
 msgid "Copied to clipboard"
 msgstr "已复制到剪贴板"
 
-#: prefs.js:30
+#: prefs.js:33
 msgid "History Size"
 msgstr "历史条数"
 
-#: prefs.js:39
+#: prefs.js:42
 msgid "Preview Size (characters)"
 msgstr "预览长度（字符）"
 
-#: prefs.js:48
+#: prefs.js:51
 msgid "Max cache file size (MB)"
 msgstr "最大缓存文件大小 (MB)"
 
-#: prefs.js:57
+#: prefs.js:60
 msgid "Number of characters in top bar"
 msgstr "顶栏显示的字符数量"
 
-#: prefs.js:66
+#: prefs.js:69
 msgid "What to show in top bar"
 msgstr "在顶栏中的显示方式"
 
-#: prefs.js:71
+#: prefs.js:74
 msgid "Remove down arrow in top bar"
 msgstr "移除顶栏中的下拉箭头"
 
-#: prefs.js:75
+#: prefs.js:78
 msgid "Cache only pinned items"
 msgstr "仅缓存收藏条目"
 
-#: prefs.js:79
+#: prefs.js:82
 msgid "Show notification on copy"
 msgstr "复制时显示通知"
 
-#: prefs.js:83
+#: prefs.js:86
 #, fuzzy
 msgid "Show notification on cycle"
 msgstr "复制时显示通知"
 
-#: prefs.js:87
+#: prefs.js:90
 msgid "Show confirmation on Clear History"
 msgstr "清除历史时显示通知"
 
-#: prefs.js:91
+#: prefs.js:94
 msgid "Remove whitespace around text"
 msgstr "移除文字周围的空白字符"
 
-#: prefs.js:95
+#: prefs.js:98
 msgid "Move item to the top after selection"
 msgstr "选择后将项目移到顶部"
 
-#: prefs.js:99
+#: prefs.js:102
 msgid "Keep selected entry after Clear History"
 msgstr "清除历史后保存选中条目"
 
-#: prefs.js:103
+#: prefs.js:106
 msgid "Show paste buttons"
 msgstr "显示粘贴按钮"
 
-#: prefs.js:104
+#: prefs.js:107
 msgid "Adds a paste button to each entry that lets you paste it directly"
 msgstr "在每个条目之后显示直接粘贴按钮"
 
-#: prefs.js:108
+#: prefs.js:111
 msgid "Place the pinned section on the bottom"
 msgstr "将收藏的内容置底"
 
-#: prefs.js:109
+#: prefs.js:112
 msgid "Requires restarting the extension"
 msgstr "需要重启此扩展"
 
-#: prefs.js:113
+#: prefs.js:116
 msgid "Clear clipboard history on system reboot"
 msgstr "系统重启时清除历史记录"
 
-#: prefs.js:117
+#: prefs.js:120
 msgid "Paste on select"
 msgstr ""
 
-#: prefs.js:121
+#: prefs.js:124
 msgid "Cache images"
 msgstr ""
 
-#: prefs.js:126
+#: prefs.js:129
 msgid "Excluded Apps"
 msgstr ""
 
-#: prefs.js:127
+#: prefs.js:130
 msgid "Content copied will not be saved while these apps are in focus"
 msgstr ""
 
-#: prefs.js:146
+#: prefs.js:141
+msgid "Case-sensitive search"
+msgstr ""
+
+#: prefs.js:145
+msgid "Regular expression matching in search"
+msgstr ""
+
+#: prefs.js:150
+msgid "Use custom storage location"
+msgstr "使用自定义存储位置"
+
+#: prefs.js:151
+msgid "Store clipboard history in a custom folder instead of ~/.cache/"
+msgstr "将剪贴板历史存储在自定义文件夹而不是 ~/.cache/"
+
+#: prefs.js:155
+msgid "Storage folder"
+msgstr "存储文件夹"
+
+#: prefs.js:156
+msgid "Not set"
+msgstr ""
+
+#: prefs.js:160
+msgid "Browse..."
+msgstr ""
+
+#: prefs.js:186
+#, fuzzy
+msgid "Clear clipboard history on interval"
+msgstr "系统重启时清除历史记录"
+
+#: prefs.js:190
+msgid "History clear interval (in minutes)"
+msgstr ""
+
+#: prefs.js:202
 msgid "UI"
 msgstr "界面"
 
-#: prefs.js:147
+#: prefs.js:203
 msgid "Behavior"
 msgstr "行为"
 
-#: prefs.js:148
+#: prefs.js:205
+msgid "Storage"
+msgstr "存储"
+
+#: prefs.js:206
+msgid "Changes require restarting GNOME Shell to take effect"
+msgstr "更改需要重启 GNOME Shell 生效"
+
+#: prefs.js:208
 msgid "Exclusion"
 msgstr ""
 
-#: prefs.js:149
+#: prefs.js:209
 msgid "Limits"
 msgstr "限制"
 
-#: prefs.js:150
+#: prefs.js:210
 msgid "Topbar"
 msgstr "顶栏"
 
-#: prefs.js:151
+#: prefs.js:211
 msgid "Notifications"
 msgstr "通知"
 
-#: prefs.js:152
+#: prefs.js:212
 msgid "Shortcuts"
 msgstr "快捷键"
 
-#: prefs.js:207
+#: prefs.js:213
+msgid "Search"
+msgstr ""
+
+#: prefs.js:283
+msgid "Select Storage Folder"
+msgstr ""
+
+#: prefs.js:306
 msgid "Icon"
 msgstr "图标"
 
-#: prefs.js:208
+#: prefs.js:307
 msgid "Clipboard Content"
 msgstr "剪贴板内容"
 
-#: prefs.js:209
+#: prefs.js:308
 msgid "Both"
 msgstr "图标和剪贴板内容"
 
-#: prefs.js:210
+#: prefs.js:309
 msgid "Neither"
 msgstr "不显示"
 
-#: prefs.js:221
+#: prefs.js:320
 msgid "Toggle the menu"
 msgstr "切换菜单"
 
-#: prefs.js:223
+#: prefs.js:322
 msgid "Previous entry"
 msgstr "上一条"
 
-#: prefs.js:224
+#: prefs.js:323
 msgid "Next entry"
 msgstr "下一条"
 
-#: prefs.js:229
+#: prefs.js:328
 msgid "Enable shortcuts"
 msgstr "开启键盘快捷键"
 
-#: prefs.js:254
+#: prefs.js:353
 msgid "Disabled"
 msgstr "关闭"
 
-#: prefs.js:263
+#: prefs.js:362
 msgid "Enter shortcut"
 msgstr "输入键盘快捷键"
 
-#: prefs.js:345
+#: prefs.js:449
 msgid "Window class name, e.g. \"KeePassXC\""
 msgstr ""
+
+#: prefs.js:461
+msgid "Choose from installed applications"
+msgstr ""
+
+#: prefs.js:478
+msgid "Search applications..."
+msgstr ""
+
+#: qrcode.js:35
+#, fuzzy
+msgid "Clipboard Indicator Plus"
+msgstr "Clipboard Indicator Plus"
+
+#: qrcode.js:36
+msgid "Manage and access your copied items"
+msgstr "管理和访问已复制的项目"
+
+#: qrcode.js:37
+msgid "Last Copied Text"
+msgstr "上次复制的文本"
+
+#: qrcode.js:38
+msgid "Fetched just now"
+msgstr "刚刚获取"
+
+#: qrcode.js:39
+msgid "Copy Text"
+msgstr "复制文本"
+
+#: qrcode.js:40
+msgid "Copied!"
+msgstr "已复制！"
+
+#: qrcode.js:41
+msgid "Tap text to select if button doesn't work"
+msgstr "如果按钮无效，请点击文本选择"
 
 #~ msgid "Refresh Interval (ms)"
 #~ msgstr "刷新间隔（毫秒）"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-shell-extension-clipboard-indicator\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-21 16:41+0300\n"
+"POT-Creation-Date: 2026-01-04 20:30+0530\n"
 "PO-Revision-Date: 2018-03-10 09:43-0600\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: \n"
@@ -18,220 +18,343 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: extension.js:108
+#: confirmDialog.js:112
+msgid "QR Code (URL)"
+msgstr "Código QR (URL)"
+
+#: confirmDialog.js:112
+msgid "QR Code"
+msgstr "Código QR"
+
+#: confirmDialog.js:138
+msgid "Scan QR or type URL on same WiFi network"
+msgstr "Escanear QR o escribir URL en la misma red WiFi"
+
+#: confirmDialog.js:156
+msgid "Close"
+msgstr "Cerrar"
+
+#: confirmDialog.js:165
+msgid "Save to Downloads"
+msgstr "Guardar en Descargas"
+
+#: extension.js:114
 msgid "Text will be here"
 msgstr "El texto aparecerá aquí"
 
-#: extension.js:181
+#: extension.js:190
 msgid "Type here to search..."
 msgstr "Escriba aquí para buscar..."
 
-#: extension.js:250 prefs.js:220
+#: extension.js:259 prefs.js:319
 msgid "Private mode"
 msgstr "Modo privado"
 
-#: extension.js:264 prefs.js:222
+#: extension.js:273 prefs.js:321
 msgid "Clear history"
 msgstr "Vaciar historial"
 
-#: extension.js:276
+#: extension.js:318
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:299
+#: extension.js:341
 msgid "Clipboard is empty"
 msgstr "El portapapeles está vacío"
 
-#: extension.js:571
+#: extension.js:657
+msgid "Failed to start text server"
+msgstr ""
+
+#: extension.js:668
+msgid "Failed to generate QR code. Is qrencode installed?"
+msgstr ""
+
+#: extension.js:673
 msgid "Clear all?"
 msgstr "¿Borrar todo?"
 
-#: extension.js:572
+#: extension.js:674
 msgid "Are you sure you want to delete all clipboard items?"
 msgstr "¿Está seguro de que quiere borrar todos los ítems del portapapeles?"
 
-#: extension.js:573
+#: extension.js:675
 msgid "This operation cannot be undone."
 msgstr "Esta operación no puede ser deshecha"
 
-#: extension.js:575
+#: extension.js:677
 msgid "Clear"
 msgstr "Borrar"
 
-#: extension.js:575 extension.js:740
+#: extension.js:677 extension.js:848
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: extension.js:588
+#: extension.js:692
 msgid "Clipboard history cleared"
 msgstr "Historial del portapapeles vaciado"
 
-#: extension.js:739
+#: extension.js:695
+#, fuzzy
+msgid "Clipboard history cleared automatically"
+msgstr "Historial del portapapeles vaciado"
+
+#: extension.js:847
 msgid "Copied to clipboard"
 msgstr "Copiado en el portapapeles"
 
-#: prefs.js:30
+#: prefs.js:33
 msgid "History Size"
 msgstr "Tamaño del historial"
 
-#: prefs.js:39
+#: prefs.js:42
 msgid "Preview Size (characters)"
 msgstr "Tamaño de previsualización (caracteres)"
 
-#: prefs.js:48
+#: prefs.js:51
 msgid "Max cache file size (MB)"
 msgstr "Tamaño máximo de cache (MB)"
 
-#: prefs.js:57
+#: prefs.js:60
 msgid "Number of characters in top bar"
 msgstr "Número de caracteres en la barra superior"
 
-#: prefs.js:66
+#: prefs.js:69
 msgid "What to show in top bar"
 msgstr "Qué mostrar en la barra superior"
 
-#: prefs.js:71
+#: prefs.js:74
 msgid "Remove down arrow in top bar"
 msgstr "Quitar la flecha hacia abajo de la barra de arriba"
 
-#: prefs.js:75
+#: prefs.js:78
 msgid "Cache only pinned items"
 msgstr "Cachear sólo los items anclados"
 
-#: prefs.js:79
+#: prefs.js:82
 msgid "Show notification on copy"
 msgstr "Mostrar una notificación al copiar"
 
-#: prefs.js:83
+#: prefs.js:86
 #, fuzzy
 msgid "Show notification on cycle"
 msgstr "Mostrar una notificación al copiar"
 
-#: prefs.js:87
+#: prefs.js:90
 msgid "Show confirmation on Clear History"
 msgstr "Mostrar una confirmación al borrar el historial"
 
-#: prefs.js:91
+#: prefs.js:94
 msgid "Remove whitespace around text"
 msgstr "Eliminar espacios en blanco alrededor del texto"
 
-#: prefs.js:95
+#: prefs.js:98
 msgid "Move item to the top after selection"
 msgstr "Mover el ítem hacia arriba despues de seleccionarlo"
 
-#: prefs.js:99
+#: prefs.js:102
 msgid "Keep selected entry after Clear History"
 msgstr "Mantener la entrada seleccionada después de limpiar el historial"
 
-#: prefs.js:103
+#: prefs.js:106
 msgid "Show paste buttons"
 msgstr "Mostrar botones de pegar"
 
-#: prefs.js:104
+#: prefs.js:107
 msgid "Adds a paste button to each entry that lets you paste it directly"
 msgstr ""
 "Añade un botón de pegar a cada entrada, que te permite pegarlo directamente"
 
-#: prefs.js:108
+#: prefs.js:111
 msgid "Place the pinned section on the bottom"
 msgstr "Situar la sección anclada abajo"
 
-#: prefs.js:109
+#: prefs.js:112
 msgid "Requires restarting the extension"
 msgstr "Requiere reiniciar la extensión"
 
-#: prefs.js:113
+#: prefs.js:116
 #, fuzzy
 msgid "Clear clipboard history on system reboot"
 msgstr "Historial del portapapeles vaciado"
 
-#: prefs.js:117
+#: prefs.js:120
 msgid "Paste on select"
 msgstr ""
 
-#: prefs.js:121
+#: prefs.js:124
 msgid "Cache images"
 msgstr ""
 
-#: prefs.js:126
+#: prefs.js:129
 msgid "Excluded Apps"
 msgstr ""
 
-#: prefs.js:127
+#: prefs.js:130
 msgid "Content copied will not be saved while these apps are in focus"
 msgstr ""
 
-#: prefs.js:146
+#: prefs.js:141
+msgid "Case-sensitive search"
+msgstr ""
+
+#: prefs.js:145
+msgid "Regular expression matching in search"
+msgstr ""
+
+#: prefs.js:150
+msgid "Use custom storage location"
+msgstr "Usar ubicación de almacenamiento personalizada"
+
+#: prefs.js:151
+msgid "Store clipboard history in a custom folder instead of ~/.cache/"
+msgstr "Guardar historial del portapapeles en una carpeta personalizada en lugar de ~/.cache/"
+
+#: prefs.js:155
+msgid "Storage folder"
+msgstr "Carpeta de almacenamiento"
+
+#: prefs.js:156
+msgid "Not set"
+msgstr ""
+
+#: prefs.js:160
+msgid "Browse..."
+msgstr ""
+
+#: prefs.js:186
+#, fuzzy
+msgid "Clear clipboard history on interval"
+msgstr "Historial del portapapeles vaciado"
+
+#: prefs.js:190
+msgid "History clear interval (in minutes)"
+msgstr ""
+
+#: prefs.js:202
 msgid "UI"
 msgstr "Interfaz de Usuario"
 
-#: prefs.js:147
+#: prefs.js:203
 msgid "Behavior"
 msgstr ""
 
-#: prefs.js:148
+#: prefs.js:205
+msgid "Storage"
+msgstr "Almacenamiento"
+
+#: prefs.js:206
+msgid "Changes require restarting GNOME Shell to take effect"
+msgstr "Los cambios requieren reiniciar GNOME Shell para surtir efecto"
+
+#: prefs.js:208
 msgid "Exclusion"
 msgstr ""
 
-#: prefs.js:149
+#: prefs.js:209
 msgid "Limits"
 msgstr "Limites"
 
-#: prefs.js:150
+#: prefs.js:210
 msgid "Topbar"
 msgstr "Barra superior"
 
-#: prefs.js:151
+#: prefs.js:211
 msgid "Notifications"
 msgstr "Notificaciones"
 
-#: prefs.js:152
+#: prefs.js:212
 msgid "Shortcuts"
 msgstr "Atajos de teclado"
 
-#: prefs.js:207
+#: prefs.js:213
+msgid "Search"
+msgstr ""
+
+#: prefs.js:283
+msgid "Select Storage Folder"
+msgstr ""
+
+#: prefs.js:306
 msgid "Icon"
 msgstr "Icono"
 
-#: prefs.js:208
+#: prefs.js:307
 msgid "Clipboard Content"
 msgstr "Contenido del portapapeles"
 
-#: prefs.js:209
+#: prefs.js:308
 msgid "Both"
 msgstr "Ambos"
 
-#: prefs.js:210
+#: prefs.js:309
 msgid "Neither"
 msgstr ""
 
-#: prefs.js:221
+#: prefs.js:320
 msgid "Toggle the menu"
 msgstr "Alternar menú"
 
-#: prefs.js:223
+#: prefs.js:322
 msgid "Previous entry"
 msgstr "Entrada anterior"
 
-#: prefs.js:224
+#: prefs.js:323
 msgid "Next entry"
 msgstr "Entrada siguiente"
 
-#: prefs.js:229
+#: prefs.js:328
 msgid "Enable shortcuts"
 msgstr "Habilitar atajos de teclado"
 
-#: prefs.js:254
+#: prefs.js:353
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: prefs.js:263
+#: prefs.js:362
 msgid "Enter shortcut"
 msgstr "Introduce atajo de teclado"
 
-#: prefs.js:345
+#: prefs.js:449
 msgid "Window class name, e.g. \"KeePassXC\""
 msgstr ""
+
+#: prefs.js:461
+msgid "Choose from installed applications"
+msgstr ""
+
+#: prefs.js:478
+msgid "Search applications..."
+msgstr ""
+
+#: qrcode.js:35
+#, fuzzy
+msgid "Clipboard Indicator Plus"
+msgstr "Clipboard Indicator Plus"
+
+#: qrcode.js:36
+msgid "Manage and access your copied items"
+msgstr "Gestiona y accede a tus elementos copiados"
+
+#: qrcode.js:37
+msgid "Last Copied Text"
+msgstr "Último texto copiado"
+
+#: qrcode.js:38
+msgid "Fetched just now"
+msgstr "Obtenido ahora mismo"
+
+#: qrcode.js:39
+msgid "Copy Text"
+msgstr "Copiar texto"
+
+#: qrcode.js:40
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#: qrcode.js:41
+msgid "Tap text to select if button doesn't work"
+msgstr "Toca el texto para seleccionar si el botón no funciona"
 
 #~ msgid "Refresh Interval (ms)"
 #~ msgstr "Intervalo de actualización (ms)"

@@ -1,6 +1,7 @@
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 import Soup from 'gi://Soup';
+import { gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 // Maximum text length that can fit in a QR code (conservative estimate for UTF-8)
 export const MAX_QR_TEXT_LENGTH = 1500;
@@ -31,12 +32,20 @@ export class TextServer {
 
         // Add handler for root path
         this.#server.add_handler('/', (server, msg, path, query) => {
+            const titleStr = _('Clipboard Indicator Plus');
+            const subtitleStr = _('Manage and access your copied items');
+            const lastCopiedStr = _('Last Copied Text');
+            const fetchedStr = _('Fetched just now');
+            const copyTextStr = _('Copy Text');
+            const copiedStr = _('Copied!');
+            const hintStr = _('Tap text to select if button doesn\'t work');
+
             const html = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clipboard Sync</title>
+    <title>${titleStr}</title>
     <style>
         :root {
             --bg: #f5f5f7;
@@ -144,14 +153,14 @@ export class TextServer {
 </head>
 <body>
     <div class="header">
-        <h1> Clipboard Indicator Plus</h1>
-        <p>Manage and access your copied items</p>
+        <h1> ${titleStr}</h1>
+        <p>${subtitleStr}</p>
     </div>
     
     <div class="card">
         <div class="card-header">
-            <span class="card-title">Last Copied Text</span>
-            <span class="badge">Fetched just now</span>
+            <span class="card-title">${lastCopiedStr}</span>
+            <span class="badge">${fetchedStr}</span>
         </div>
         <textarea id="text" readonly>${this.#escapeHtml(this.#text)}</textarea>
         <div class="btn-container">
@@ -159,12 +168,12 @@ export class TextServer {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                 </svg>
-                Copy Text
+                ${copyTextStr}
             </button>
         </div>
     </div>
     
-    <p class="hint">Tap text to select if button doesn't work</p>
+    <p class="hint">${hintStr}</p>
     
     <script>
         const text = document.getElementById('text');
@@ -191,11 +200,11 @@ export class TextServer {
                 document.execCommand('copy');
             }
             
-            btn.innerHTML = icons.check + ' Copied!';
+            btn.innerHTML = icons.check + ' ${copiedStr}';
             btn.classList.add('success');
             
             setTimeout(() => {
-                btn.innerHTML = icons.copy + ' Copy Text';
+                btn.innerHTML = icons.copy + ' ${copyTextStr}';
                 btn.classList.remove('success');
             }, 2000);
         }

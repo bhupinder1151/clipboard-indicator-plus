@@ -4,6 +4,7 @@ import Clutter from 'gi://Clutter';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import * as ModalDialog from 'resource:///org/gnome/shell/ui/modalDialog.js';
+import { gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export class DialogManager {
   #openDialog;
@@ -108,7 +109,7 @@ const QRDialog = GObject.registerClass(
       let title_label = new St.Label({
         style: 'font-weight: bold; font-size: 14px;',
         x_align: Clutter.ActorAlign.CENTER,
-        text: this._isServerMode ? 'QR Code (URL)' : 'QR Code'
+        text: this._isServerMode ? _('QR Code (URL)') : _('QR Code')
       });
       main_box.add_child(title_label);
 
@@ -134,7 +135,7 @@ const QRDialog = GObject.registerClass(
         let hint_label = new St.Label({
           style: 'font-size: 10px; color: #888;',
           x_align: Clutter.ActorAlign.CENTER,
-          text: 'Scan QR or type URL on same WiFi network'
+          text: _('Scan QR or type URL on same WiFi network')
         });
         main_box.add_child(hint_label);
       } else {
@@ -152,7 +153,7 @@ const QRDialog = GObject.registerClass(
 
       this.setButtons([
         {
-          label: 'Close',
+          label: _('Close'),
           action: () => {
             this._cleanup();
             this.close();
@@ -161,7 +162,7 @@ const QRDialog = GObject.registerClass(
           key: Clutter.Escape
         },
         {
-          label: 'Save to Downloads',
+          label: _('Save to Downloads'),
           action: () => {
             this._saveToDownloads();
           }
