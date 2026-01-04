@@ -1,5 +1,5 @@
 ============================
-📋 Clipboard Indicator (Fork)
+📋 Clipboard Indicator Plus
 ============================
 
 This is a **personal fork** of the popular Clipboard Indicator GNOME Shell extension 

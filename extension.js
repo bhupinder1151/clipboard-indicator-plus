@@ -1039,7 +1039,7 @@ const ClipboardIndicator = GObject.registerClass({
     _initNotifSource() {
         if (!this._notifSource) {
             this._notifSource = new MessageTray.Source({
-                title: 'Clipboard Indicator',
+                title: 'Clipboard Indicator Plus',
                 'icon-name': INDICATOR_ICON
             });
 
