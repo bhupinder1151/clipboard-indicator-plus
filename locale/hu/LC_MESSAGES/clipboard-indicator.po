@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 21:23+0530\n"
+"POT-Creation-Date: 2026-01-04 21:43+0530\n"
 "PO-Revision-Date: 2020-10-31 16:25+0100\n"
 "Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
 "Language-Team: \n"
@@ -46,79 +46,78 @@ msgstr "A szöveg itt fog megjelenni"
 msgid "Type here to search..."
 msgstr "Írjon ide a kereséshez…"
 
-#: extension.js:259 prefs.js:319
+#: extension.js:258
+msgid "Receive Text"
+msgstr ""
+
+#: extension.js:272 prefs.js:319
 msgid "Private mode"
 msgstr "Privát mód"
 
-#: extension.js:273 prefs.js:321
+#: extension.js:286 prefs.js:321
 msgid "Clear history"
 msgstr "Előzmények törlése"
 
-#: extension.js:318
+#: extension.js:331
 msgid "Settings"
 msgstr "Beállítások"
 
-#: extension.js:331 qrcode.js:102
-#, fuzzy
-msgid "Clipboard Sync"
-msgstr "Vágólap tartalma"
-
-#: extension.js:354
+#: extension.js:356
 #, fuzzy
 msgid "Clipboard is empty"
 msgstr "Vágólap tartalma"
 
-#: extension.js:672
+#: extension.js:674
 msgid "Failed to start text server"
 msgstr ""
 
-#: extension.js:683
+#: extension.js:685
 msgid "Failed to generate QR code. Is qrencode installed?"
 msgstr ""
 
-#: extension.js:698
+#: extension.js:700
 msgid "Failed to start sync server"
 msgstr ""
 
-#: extension.js:709
+#: extension.js:711
 #, fuzzy
 msgid "Failed to start clipboard sync"
 msgstr "Vágólapra másolva"
 
-#: extension.js:732
+#: extension.js:734
 msgid "Text received from phone"
 msgstr ""
 
-#: extension.js:736
+#: extension.js:738
 msgid "Clear all?"
 msgstr "Összes törlése?"
 
-#: extension.js:737
+#: extension.js:739
 msgid "Are you sure you want to delete all clipboard items?"
 msgstr "Biztos, hogy törli az összes vágólapelemet?"
 
-#: extension.js:738
+#: extension.js:740
 msgid "This operation cannot be undone."
 msgstr "Ez a művelet nem vonható vissza."
 
-#: extension.js:740
+#: extension.js:742
 msgid "Clear"
 msgstr "Törlés"
 
-#: extension.js:740 extension.js:911
+#: extension.js:742 extension.js:913
 msgid "Cancel"
 msgstr "Mégse"
 
-#: extension.js:755
+#: extension.js:757
 msgid "Clipboard history cleared"
 msgstr "Vágólap előzmények törölve"
 
-#: extension.js:758
+#: extension.js:760
 #, fuzzy
 msgid "Clipboard history cleared automatically"
 msgstr "Vágólap előzmények törölve"
 
-#: extension.js:910
+#: extension.js:912
 msgid "Copied to clipboard"
 msgstr "Vágólapra másolva"
 
@@ -350,40 +349,45 @@ msgstr ""
 msgid "Search applications..."
 msgstr ""
 
-#: qrcode.js:103
+#: qrcode.js:109
+#, fuzzy
+msgid "Clipboard Sync"
+msgstr "Vágólap tartalma"
+
+#: qrcode.js:110
 msgid "Share clipboard between devices"
 msgstr ""
 
-#: qrcode.js:104
+#: qrcode.js:111
 msgid "From Laptop"
 msgstr ""
 
-#: qrcode.js:105 qrcode.js:111
+#: qrcode.js:112 qrcode.js:118
 msgid "Send to Laptop"
 msgstr ""
 
-#: qrcode.js:106
+#: qrcode.js:113
 msgid "Copy Text"
 msgstr ""
 
-#: qrcode.js:107
+#: qrcode.js:114
 msgid "Copied!"
 msgstr ""
 
-#: qrcode.js:108
+#: qrcode.js:115
 msgid "Sent!"
 msgstr ""
 
-#: qrcode.js:109
+#: qrcode.js:116
 msgid "Sending..."
 msgstr ""
 
-#: qrcode.js:110
+#: qrcode.js:117
 #, fuzzy
 msgid "Type or paste text here..."
 msgstr "Írjon ide a kereséshez…"
 
-#: qrcode.js:112
+#: qrcode.js:119
 msgid "Connected to same WiFi network"
 msgstr ""
 

@@ -78,9 +78,16 @@ export class TextServer {
             const bytes = body.flatten().get_data();
             const text = new TextDecoder().decode(bytes);
 
-            // Parse URL-encoded form data
-            const params = new URLSearchParams(text);
-            const receivedText = params.get('text') || '';
+            // Parse URL-encoded form data manually (URLSearchParams not available in GJS)
+            let receivedText = '';
+            const pairs = text.split('&');
+            for (const pair of pairs) {
+                const [key, value] = pair.split('=');
+                if (key === 'text' && value) {
+                    receivedText = decodeURIComponent(value.replace(/\+/g, ' '));
+                    break;
+                }
+            }
 
             if (receivedText && this.#onTextReceived) {
                 this.#onTextReceived(receivedText);

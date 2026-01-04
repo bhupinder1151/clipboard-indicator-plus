@@ -254,6 +254,19 @@ const ClipboardIndicator = GObject.registerClass({
             that.menu.addMenuItem(that.scrollViewMenuSection);
         }
 
+        // Add 'Receive Text' menu item for receiving text from phone
+        this.syncMenuItem = new PopupMenu.PopupMenuItem(_('Receive Text'));
+        this.syncMenuItem.insert_child_at_index(
+            new St.Icon({
+                icon_name: 'go-bottom-symbolic',
+                style_class: 'clipboard-menu-icon',
+                y_align: Clutter.ActorAlign.CENTER
+            }),
+            0
+        );
+        that.menu.addMenuItem(this.syncMenuItem);
+        this.syncMenuItem.connect('activate', that._openClipboardSync.bind(that));
+
         // Private mode switch
         that.privateModeMenuItem = new PopupMenu.PopupSwitchMenuItem(
             _("Private mode"), PRIVATEMODE, { reactive: true });
@@ -327,18 +340,7 @@ const ClipboardIndicator = GObject.registerClass({
         that.menu.addMenuItem(this.settingsMenuItem);
         this.settingsMenuItem.connect('activate', that._openSettings.bind(that));
 
-        // Add 'Clipboard Sync' menu item for bi-directional phone sync
-        this.syncMenuItem = new PopupMenu.PopupMenuItem(_('Clipboard Sync'));
-        this.syncMenuItem.insert_child_at_index(
-            new St.Icon({
-                icon_name: 'emblem-shared-symbolic',
-                style_class: 'clipboard-menu-icon',
-                y_align: Clutter.ActorAlign.CENTER
-            }),
-            0
-        );
-        that.menu.addMenuItem(this.syncMenuItem);
-        this.syncMenuItem.connect('activate', that._openClipboardSync.bind(that));
+
 
         // Empty state section
         this.emptyStateSection = new St.BoxLayout({
