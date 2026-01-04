@@ -129,7 +129,7 @@ export class Registry {
                                 });
                             }
                             else {
-                                console.error('Clipboard Indicator: failed to open registry file');
+                                console.error('Clipboard Indicator Plus: failed to open registry file');
                             }
                         });
                     });
@@ -265,7 +265,7 @@ export class ClipboardEntry {
                     }
                     else {
                         reject(
-                            new Error('Clipboard Indicator: could not read image file from cache')
+                            new Error('Clipboard Indicator Plus: could not read image file from cache')
                         );
                     }
                 }));

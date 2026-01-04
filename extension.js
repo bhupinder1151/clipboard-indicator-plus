@@ -851,7 +851,7 @@ const ClipboardIndicator = GObject.registerClass({
             }
         }
         catch (e) {
-            console.error('Clipboard Indicator: Failed to refresh indicator');
+            console.error(' Clipboard Indicator Plus: Failed to refresh indicator');
             console.error(e);
         }
         finally {
@@ -1210,7 +1210,7 @@ const ClipboardIndicator = GObject.registerClass({
             else
                 that._unbindShortcuts();
         } catch (e) {
-            console.error('Clipboard Indicator: Failed to update registry');
+            console.error('Clipboard Indicator Plus: Failed to update registry');
             console.error(e);
         }
     }

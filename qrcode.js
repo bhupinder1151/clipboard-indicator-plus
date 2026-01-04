@@ -144,7 +144,7 @@ export class TextServer {
 </head>
 <body>
     <div class="header">
-        <h1>Clipboard Indicator</h1>
+        <h1> Clipboard Indicator Plus</h1>
         <p>Manage and access your copied items</p>
     </div>
     
