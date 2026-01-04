@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 20:30+0530\n"
+"POT-Creation-Date: 2026-01-04 21:23+0530\n"
 "PO-Revision-Date: 2021-07-07 17:43+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
@@ -58,49 +58,67 @@ msgstr "Geschiedenis wissen"
 msgid "Settings"
 msgstr "Instellingen"
 
-#: extension.js:341
+#: extension.js:331 qrcode.js:102
+#, fuzzy
+msgid "Clipboard Sync"
+msgstr "Klembordinhoud"
+
+#: extension.js:354
 #, fuzzy
 msgid "Clipboard is empty"
 msgstr "Klembordinhoud"
 
-#: extension.js:657
+#: extension.js:672
 msgid "Failed to start text server"
 msgstr ""
 
-#: extension.js:668
+#: extension.js:683
 msgid "Failed to generate QR code. Is qrencode installed?"
 msgstr ""
 
-#: extension.js:673
+#: extension.js:698
+msgid "Failed to start sync server"
+msgstr ""
+
+#: extension.js:709
+#, fuzzy
+msgid "Failed to start clipboard sync"
+msgstr "Gekopieerd naar het klembord"
+
+#: extension.js:732
+msgid "Text received from phone"
+msgstr ""
+
+#: extension.js:736
 msgid "Clear all?"
 msgstr "Alles wissen?"
 
-#: extension.js:674
+#: extension.js:737
 msgid "Are you sure you want to delete all clipboard items?"
 msgstr "Weet u zeker dat u alle klemborditems wilt wissen?"
 
-#: extension.js:675
+#: extension.js:738
 msgid "This operation cannot be undone."
 msgstr "Dit kan niet ongedaan worden gemaakt."
 
-#: extension.js:677
+#: extension.js:740
 msgid "Clear"
 msgstr "Wissen"
 
-#: extension.js:677 extension.js:848
+#: extension.js:740 extension.js:911
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: extension.js:692
+#: extension.js:755
 msgid "Clipboard history cleared"
 msgstr "De klembordgeschiedenis is gewist"
 
-#: extension.js:695
+#: extension.js:758
 #, fuzzy
 msgid "Clipboard history cleared automatically"
 msgstr "De klembordgeschiedenis is gewist"
 
-#: extension.js:847
+#: extension.js:910
 msgid "Copied to clipboard"
 msgstr "Gekopieerd naar het klembord"
 
@@ -332,34 +350,46 @@ msgstr ""
 msgid "Search applications..."
 msgstr ""
 
-#: qrcode.js:35
-#, fuzzy
-msgid "Clipboard Indicator Plus"
-msgstr "De klembordgeschiedenis is gewist"
-
-#: qrcode.js:36
-msgid "Manage and access your copied items"
+#: qrcode.js:103
+msgid "Share clipboard between devices"
 msgstr ""
 
-#: qrcode.js:37
-msgid "Last Copied Text"
+#: qrcode.js:104
+msgid "From Laptop"
 msgstr ""
 
-#: qrcode.js:38
-msgid "Fetched just now"
+#: qrcode.js:105 qrcode.js:111
+msgid "Send to Laptop"
 msgstr ""
 
-#: qrcode.js:39
+#: qrcode.js:106
 msgid "Copy Text"
 msgstr ""
 
-#: qrcode.js:40
+#: qrcode.js:107
 msgid "Copied!"
 msgstr ""
 
-#: qrcode.js:41
-msgid "Tap text to select if button doesn't work"
+#: qrcode.js:108
+msgid "Sent!"
 msgstr ""
+
+#: qrcode.js:109
+msgid "Sending..."
+msgstr ""
+
+#: qrcode.js:110
+#, fuzzy
+msgid "Type or paste text here..."
+msgstr "Typ om te zoeken…"
+
+#: qrcode.js:112
+msgid "Connected to same WiFi network"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Clipboard Indicator Plus"
+#~ msgstr "De klembordgeschiedenis is gewist"
 
 #~ msgid "Refresh Interval (ms)"
 #~ msgstr "Ververstussenpoos (in ms)"

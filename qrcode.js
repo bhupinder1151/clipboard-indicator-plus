@@ -11,36 +11,109 @@ const DEFAULT_PORT = 47531;
 
 /**
  * Simple HTTP server to serve clipboard text for QR code scanning
+ * and receive text from phone
  */
 export class TextServer {
     #server = null;
     #text = '';
     #port = DEFAULT_PORT;
+    #onTextReceived = null;
 
     /**
      * Start serving the given text
-     * @param {string} text - Text to serve
+     * @param {string} text - Text to serve (can be empty for receive-only mode)
+     * @param {Function} onTextReceived - Callback when text is received from phone
      * @returns {string|null} - URL to access the text, or null on failure
      */
-    start(text) {
+    start(text, onTextReceived = null) {
         if (this.#server) {
             this.stop();
         }
 
-        this.#text = text;
+        this.#text = text || '';
+        this.#onTextReceived = onTextReceived;
         this.#server = new Soup.Server();
 
-        // Add handler for root path
+        // Add handler for root path (GET - show page)
         this.#server.add_handler('/', (server, msg, path, query) => {
-            const titleStr = _('Clipboard Indicator Plus');
-            const subtitleStr = _('Manage and access your copied items');
-            const lastCopiedStr = _('Last Copied Text');
-            const fetchedStr = _('Fetched just now');
-            const copyTextStr = _('Copy Text');
-            const copiedStr = _('Copied!');
-            const hintStr = _('Tap text to select if button doesn\'t work');
+            const method = msg.get_method();
 
-            const html = `<!DOCTYPE html>
+            if (method === 'POST') {
+                // Handle POST - receive text from phone
+                this.#handlePost(msg);
+                return;
+            }
+
+            // GET - serve the HTML page
+            this.#serveHtmlPage(msg);
+        });
+
+        // Try to find an available port
+        for (let port = DEFAULT_PORT; port < DEFAULT_PORT + 20; port++) {
+            try {
+                this.#server.listen_all(port, Soup.ServerListenOptions.IPV4_ONLY);
+                this.#port = port;
+                break;
+            } catch (e) {
+                if (port === DEFAULT_PORT + 19) {
+                    console.error('Failed to start server on any port');
+                    return null;
+                }
+            }
+        }
+
+        const localIp = this.#getLocalIP();
+        if (!localIp) {
+            console.error('Could not determine local IP');
+            this.stop();
+            return null;
+        }
+
+        return `http://${localIp}:${this.#port}/`;
+    }
+
+    #handlePost(msg) {
+        try {
+            const body = msg.get_request_body();
+            const bytes = body.flatten().get_data();
+            const text = new TextDecoder().decode(bytes);
+
+            // Parse URL-encoded form data
+            const params = new URLSearchParams(text);
+            const receivedText = params.get('text') || '';
+
+            if (receivedText && this.#onTextReceived) {
+                this.#onTextReceived(receivedText);
+            }
+
+            // Send success response
+            const response = JSON.stringify({ success: true, message: 'Text received!' });
+            msg.set_status(200, null);
+            msg.get_response_headers().append('Content-Type', 'application/json');
+            msg.get_response_body().append(response);
+        } catch (e) {
+            console.error('Error handling POST:', e);
+            msg.set_status(500, null);
+            msg.get_response_body().append(JSON.stringify({ success: false, error: e.message }));
+        }
+    }
+
+    #serveHtmlPage(msg) {
+        const titleStr = _('Clipboard Sync');
+        const subtitleStr = _('Share clipboard between devices');
+        const fromLaptopStr = _('From Laptop');
+        const toLaptopStr = _('Send to Laptop');
+        const copyTextStr = _('Copy Text');
+        const copiedStr = _('Copied!');
+        const sentStr = _('Sent!');
+        const sendingStr = _('Sending...');
+        const typeHereStr = _('Type or paste text here...');
+        const sendBtnStr = _('Send to Laptop');
+        const hintStr = _('Connected to same WiFi network');
+
+        const hasText = this.#text && this.#text.length > 0;
+
+        const html = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -70,44 +143,15 @@ export class TextServer {
             min-height: 100vh;
         }
         .header { margin-bottom: 20px; }
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
+        .header h1 { font-size: 28px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
         .header p { font-size: 15px; color: var(--text-secondary); }
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: var(--shadow);
-        }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        .card-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .badge {
-            background: var(--success);
-            color: white;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 4px 10px;
-            border-radius: 6px;
-        }
-        #text {
+        .card { background: var(--card-bg); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 16px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .card-title { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge { background: var(--success); color: white; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 6px; }
+        .textarea {
             width: 100%;
-            min-height: 200px;
-            max-height: 60vh;
+            min-height: 120px;
             border: none;
             background: var(--textarea-bg);
             font-size: 16px;
@@ -118,14 +162,10 @@ export class TextServer {
             font-family: inherit;
             padding: 12px;
             border-radius: var(--radius-sm);
-            overflow-y: auto;
         }
-        .btn-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 16px;
-        }
-        .copy-btn {
+        .textarea:read-only { color: #6b7280; }
+        .btn-container { display: flex; justify-content: flex-end; margin-top: 16px; }
+        .btn {
             background: var(--primary);
             color: white;
             border: none;
@@ -139,32 +179,32 @@ export class TextServer {
             gap: 8px;
             transition: background 0.2s, transform 0.1s;
         }
-        .copy-btn:hover { background: var(--primary-hover); }
-        .copy-btn:active { transform: scale(0.98); }
-        .copy-btn.success { background: var(--success); }
-        .copy-btn svg { width: 18px; height: 18px; }
-        .hint { 
-            font-size: 12px; 
-            color: var(--text-tertiary); 
-            margin-top: 16px; 
-            text-align: center;
-        }
+        .btn:hover { background: var(--primary-hover); }
+        .btn:active { transform: scale(0.98); }
+        .btn.success { background: var(--success); }
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        .btn svg { width: 18px; height: 18px; }
+        .hint { font-size: 12px; color: var(--text-tertiary); margin-top: 16px; text-align: center; }
+        .status { padding: 12px; border-radius: var(--radius-sm); margin-top: 12px; text-align: center; display: none; }
+        .status.success { background: #dcfce7; color: #166534; display: block; }
+        .status.error { background: #fee2e2; color: #991b1b; display: block; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1> ${titleStr}</h1>
+        <h1>${titleStr}</h1>
         <p>${subtitleStr}</p>
     </div>
     
+    ${hasText ? `
     <div class="card">
         <div class="card-header">
-            <span class="card-title">${lastCopiedStr}</span>
-            <span class="badge">${fetchedStr}</span>
+            <span class="card-title">${fromLaptopStr}</span>
+            <span class="badge">📥</span>
         </div>
-        <textarea id="text" readonly>${this.#escapeHtml(this.#text)}</textarea>
+        <textarea class="textarea" id="laptopText" readonly>${this.#escapeHtml(this.#text)}</textarea>
         <div class="btn-container">
-            <button class="copy-btn" id="copyBtn">
+            <button class="btn" id="copyBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                 </svg>
@@ -172,81 +212,100 @@ export class TextServer {
             </button>
         </div>
     </div>
+    ` : ''}
     
-    <p class="hint">${hintStr}</p>
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">${toLaptopStr}</span>
+            <span class="badge">📤</span>
+        </div>
+        <textarea class="textarea" id="phoneText" placeholder="${typeHereStr}"></textarea>
+        <div id="status" class="status"></div>
+        <div class="btn-container">
+            <button class="btn" id="sendBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+                ${sendBtnStr}
+            </button>
+        </div>
+    </div>
+    
+    <p class="hint">✓ ${hintStr}</p>
     
     <script>
-        const text = document.getElementById('text');
-        const btn = document.getElementById('copyBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const sendBtn = document.getElementById('sendBtn');
+        const laptopText = document.getElementById('laptopText');
+        const phoneText = document.getElementById('phoneText');
+        const status = document.getElementById('status');
         
         const icons = {
             copy: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>',
-            check: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>'
+            check: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
+            send: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>'
         };
         
-        function autoResize() {
-            text.style.height = 'auto';
-            const newHeight = Math.max(200, Math.min(text.scrollHeight, window.innerHeight * 0.6));
-            text.style.height = newHeight + 'px';
+        if (copyBtn) {
+            copyBtn.addEventListener('click', async () => {
+                laptopText.select();
+                laptopText.setSelectionRange(0, 99999);
+                try {
+                    await navigator.clipboard.writeText(laptopText.value);
+                } catch { document.execCommand('copy'); }
+                copyBtn.innerHTML = icons.check + ' ${copiedStr}';
+                copyBtn.classList.add('success');
+                setTimeout(() => {
+                    copyBtn.innerHTML = icons.copy + ' ${copyTextStr}';
+                    copyBtn.classList.remove('success');
+                }, 2000);
+            });
         }
         
-        async function copyText() {
-            text.select();
-            text.setSelectionRange(0, 99999);
+        sendBtn.addEventListener('click', async () => {
+            const text = phoneText.value.trim();
+            if (!text) return;
+            
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = icons.send + ' ${sendingStr}';
+            status.className = 'status';
+            status.textContent = '';
             
             try {
-                await navigator.clipboard.writeText(text.value);
-            } catch {
-                document.execCommand('copy');
+                const response = await fetch(window.location.href, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'text=' + encodeURIComponent(text)
+                });
+                const result = await response.json();
+                if (result.success) {
+                    status.className = 'status success';
+                    status.textContent = '${sentStr}';
+                    sendBtn.innerHTML = icons.check + ' ${sentStr}';
+                    sendBtn.classList.add('success');
+                    phoneText.value = '';
+                    setTimeout(() => {
+                        sendBtn.innerHTML = icons.send + ' ${sendBtnStr}';
+                        sendBtn.classList.remove('success');
+                        sendBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(result.error || 'Failed');
+                }
+            } catch (e) {
+                status.className = 'status error';
+                status.textContent = 'Error: ' + e.message;
+                sendBtn.innerHTML = icons.send + ' ${sendBtnStr}';
+                sendBtn.disabled = false;
             }
-            
-            btn.innerHTML = icons.check + ' ${copiedStr}';
-            btn.classList.add('success');
-            
-            setTimeout(() => {
-                btn.innerHTML = icons.copy + ' ${copyTextStr}';
-                btn.classList.remove('success');
-            }, 2000);
-        }
-        
-        // Auto-resize on load and window resize
-        window.addEventListener('load', () => setTimeout(autoResize, 100));
-        window.addEventListener('resize', autoResize);
-        new MutationObserver(autoResize).observe(text, { childList: true, characterData: true, subtree: true });
-        
-        btn.addEventListener('click', copyText);
-        text.addEventListener('click', () => text.select());
+        });
     </script>
 </body>
 </html>`;
 
-            msg.set_status(200, null);
-            msg.get_response_headers().append('Content-Type', 'text/html; charset=utf-8');
-            msg.get_response_body().append(html);
-        });
-
-        // Try to find an available port
-        for (let port = DEFAULT_PORT; port < DEFAULT_PORT + 20; port++) {
-            try {
-                this.#server.listen_all(port, Soup.ServerListenOptions.IPV4_ONLY);
-                this.#port = port;
-                break;
-            } catch (e) {
-                if (port === DEFAULT_PORT + 9) {
-                    console.error('Failed to start server on any port');
-                    return null;
-                }
-            }
-        }
-
-        const localIp = this.#getLocalIP();
-        if (!localIp) {
-            console.error('Could not determine local IP');
-            this.stop();
-            return null;
-        }
-
-        return `http://${localIp}:${this.#port}/`;
+        msg.set_status(200, null);
+        msg.get_response_headers().append('Content-Type', 'text/html; charset=utf-8');
+        msg.get_response_body().append(html);
     }
 
     /**
@@ -257,6 +316,7 @@ export class TextServer {
             this.#server.disconnect();
             this.#server = null;
         }
+        this.#onTextReceived = null;
     }
 
     /**

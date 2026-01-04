@@ -327,6 +327,19 @@ const ClipboardIndicator = GObject.registerClass({
         that.menu.addMenuItem(this.settingsMenuItem);
         this.settingsMenuItem.connect('activate', that._openSettings.bind(that));
 
+        // Add 'Clipboard Sync' menu item for bi-directional phone sync
+        this.syncMenuItem = new PopupMenu.PopupMenuItem(_('Clipboard Sync'));
+        this.syncMenuItem.insert_child_at_index(
+            new St.Icon({
+                icon_name: 'emblem-shared-symbolic',
+                style_class: 'clipboard-menu-icon',
+                y_align: Clutter.ActorAlign.CENTER
+            }),
+            0
+        );
+        that.menu.addMenuItem(this.syncMenuItem);
+        this.syncMenuItem.connect('activate', that._openClipboardSync.bind(that));
+
         // Empty state section
         this.emptyStateSection = new St.BoxLayout({
             style_class: 'clipboard-indicator-empty-state',
@@ -652,7 +665,9 @@ const ClipboardIndicator = GObject.registerClass({
 
         try {
             // Always use web server for QR (works for any text size)
-            const serverUrl = this.textServer.start(text);
+            const serverUrl = this.textServer.start(text, (receivedText) => {
+                this.#handleReceivedText(receivedText);
+            });
             if (!serverUrl) {
                 this._showNotification(_('Failed to start text server'));
                 return;
@@ -667,6 +682,54 @@ const ClipboardIndicator = GObject.registerClass({
             console.error('Failed to generate QR code:', e);
             this._showNotification(_('Failed to generate QR code. Is qrencode installed?'));
         }
+    }
+
+    async _openClipboardSync() {
+        try {
+            // Get current clipboard text (if any)
+            const currentText = this._getCurrentClipboardText();
+
+            // Start server with callback for receiving text
+            const serverUrl = this.textServer.start(currentText, (receivedText) => {
+                this.#handleReceivedText(receivedText);
+            });
+
+            if (!serverUrl) {
+                this._showNotification(_('Failed to start sync server'));
+                return;
+            }
+
+            const qrPath = await generateQRCode(serverUrl, this.registry.REGISTRY_DIR);
+            if (qrPath) {
+                this.menu.close();
+                this.qrDialogManager.open(qrPath, serverUrl, this.textServer);
+            }
+        } catch (e) {
+            console.error('Failed to start clipboard sync:', e);
+            this._showNotification(_('Failed to start clipboard sync'));
+        }
+    }
+
+    _getCurrentClipboardText() {
+        // Get the most recent text entry from clipboard history
+        const items = this.historySection._getMenuItems();
+        for (const item of items) {
+            if (item.entry && item.entry.isText()) {
+                return item.entry.getStringValue();
+            }
+        }
+        return '';
+    }
+
+    #handleReceivedText(text) {
+        if (!text) return;
+
+        // Copy to clipboard
+        const clipboard = St.Clipboard.get_default();
+        clipboard.set_text(CLIPBOARD_TYPE, text);
+
+        // Show notification
+        this._showNotification(_('Text received from phone'));
     }
 
     _confirmRemoveAll() {

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 20:30+0530\n"
+"POT-Creation-Date: 2026-01-04 21:23+0530\n"
 "PO-Revision-Date: 2024-04-23 18:10+0200\n"
 "Last-Translator: Norman Henges <normanhenges@gmail.com>\n"
 "Language-Team: Deutsch <openweather@jenslody.de>\n"
@@ -58,48 +58,66 @@ msgstr "Verlauf löschen"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: extension.js:341
+#: extension.js:331 qrcode.js:102
+#, fuzzy
+msgid "Clipboard Sync"
+msgstr "Inhalt der Zwischenablage"
+
+#: extension.js:354
 msgid "Clipboard is empty"
 msgstr "Zwischenablage ist leer"
 
-#: extension.js:657
+#: extension.js:672
 msgid "Failed to start text server"
 msgstr ""
 
-#: extension.js:668
+#: extension.js:683
 msgid "Failed to generate QR code. Is qrencode installed?"
 msgstr ""
 
-#: extension.js:673
+#: extension.js:698
+msgid "Failed to start sync server"
+msgstr ""
+
+#: extension.js:709
+#, fuzzy
+msgid "Failed to start clipboard sync"
+msgstr "In Zwischenablage kopiert"
+
+#: extension.js:732
+msgid "Text received from phone"
+msgstr ""
+
+#: extension.js:736
 msgid "Clear all?"
 msgstr "Alles löschen?"
 
-#: extension.js:674
+#: extension.js:737
 msgid "Are you sure you want to delete all clipboard items?"
 msgstr "Soll die Zwischenablage wirklich geleert werden?"
 
-#: extension.js:675
+#: extension.js:738
 msgid "This operation cannot be undone."
 msgstr "Diese Aktion kann nicht rückgängig gemacht werden."
 
-#: extension.js:677
+#: extension.js:740
 msgid "Clear"
 msgstr "Löschen"
 
-#: extension.js:677 extension.js:848
+#: extension.js:740 extension.js:911
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: extension.js:692
+#: extension.js:755
 msgid "Clipboard history cleared"
 msgstr "Verlauf der Zwischenablage gelöscht"
 
-#: extension.js:695
+#: extension.js:758
 #, fuzzy
 msgid "Clipboard history cleared automatically"
 msgstr "Verlauf der Zwischenablage gelöscht"
 
-#: extension.js:847
+#: extension.js:910
 msgid "Copied to clipboard"
 msgstr "In Zwischenablage kopiert"
 
@@ -206,7 +224,9 @@ msgstr "Benutzerdefinierten Speicherort verwenden"
 
 #: prefs.js:151
 msgid "Store clipboard history in a custom folder instead of ~/.cache/"
-msgstr "Zwischenablageverlauf in einem benutzerdefinierten Ordner speichern statt in ~/.cache/"
+msgstr ""
+"Zwischenablageverlauf in einem benutzerdefinierten Ordner speichern statt in "
+"~/.cache/"
 
 #: prefs.js:155
 msgid "Storage folder"
@@ -325,34 +345,59 @@ msgstr ""
 msgid "Search applications..."
 msgstr ""
 
-#: qrcode.js:35
-#, fuzzy
-msgid "Clipboard Indicator Plus"
-msgstr "Clipboard Indicator Plus"
+#: qrcode.js:103
+msgid "Share clipboard between devices"
+msgstr ""
 
-#: qrcode.js:36
-msgid "Manage and access your copied items"
-msgstr "Kopierte Elemente verwalten und zugreifen"
+#: qrcode.js:104
+msgid "From Laptop"
+msgstr ""
 
-#: qrcode.js:37
-msgid "Last Copied Text"
-msgstr "Zuletzt kopierter Text"
+#: qrcode.js:105 qrcode.js:111
+msgid "Send to Laptop"
+msgstr ""
 
-#: qrcode.js:38
-msgid "Fetched just now"
-msgstr "Gerade abgerufen"
-
-#: qrcode.js:39
+#: qrcode.js:106
 msgid "Copy Text"
 msgstr "Text kopieren"
 
-#: qrcode.js:40
+#: qrcode.js:107
 msgid "Copied!"
 msgstr "Kopiert!"
 
-#: qrcode.js:41
-msgid "Tap text to select if button doesn't work"
-msgstr "Text antippen zum Auswählen, falls Button nicht funktioniert"
+#: qrcode.js:108
+msgid "Sent!"
+msgstr ""
+
+#: qrcode.js:109
+msgid "Sending..."
+msgstr ""
+
+#: qrcode.js:110
+#, fuzzy
+msgid "Type or paste text here..."
+msgstr "Text eingeben, um zu suchen…"
+
+#: qrcode.js:112
+#, fuzzy
+msgid "Connected to same WiFi network"
+msgstr "QR scannen oder URL im selben WLAN eingeben"
+
+#, fuzzy
+#~ msgid "Clipboard Indicator Plus"
+#~ msgstr "Clipboard Indicator Plus"
+
+#~ msgid "Manage and access your copied items"
+#~ msgstr "Kopierte Elemente verwalten und zugreifen"
+
+#~ msgid "Last Copied Text"
+#~ msgstr "Zuletzt kopierter Text"
+
+#~ msgid "Fetched just now"
+#~ msgstr "Gerade abgerufen"
+
+#~ msgid "Tap text to select if button doesn't work"
+#~ msgstr "Text antippen zum Auswählen, falls Button nicht funktioniert"
 
 #~ msgid "Refresh Interval (ms)"
 #~ msgstr "Aktualisierungsintervall (ms)"

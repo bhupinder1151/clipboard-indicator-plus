@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 20:30+0530\n"
+"POT-Creation-Date: 2026-01-04 21:23+0530\n"
 "PO-Revision-Date: 2025-05-23 17:15+0200\n"
 "Last-Translator: p-sage <>\n"
 "Language-Team: French\n"
@@ -53,48 +53,66 @@ msgstr "Effacer l'historique"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: extension.js:341
+#: extension.js:331 qrcode.js:102
+#, fuzzy
+msgid "Clipboard Sync"
+msgstr "Contenu"
+
+#: extension.js:354
 msgid "Clipboard is empty"
 msgstr "Le presse-papiers est vide"
 
-#: extension.js:657
+#: extension.js:672
 msgid "Failed to start text server"
 msgstr ""
 
-#: extension.js:668
+#: extension.js:683
 msgid "Failed to generate QR code. Is qrencode installed?"
 msgstr ""
 
-#: extension.js:673
+#: extension.js:698
+msgid "Failed to start sync server"
+msgstr ""
+
+#: extension.js:709
+#, fuzzy
+msgid "Failed to start clipboard sync"
+msgstr "Copié dans le presse-papiers"
+
+#: extension.js:732
+msgid "Text received from phone"
+msgstr ""
+
+#: extension.js:736
 msgid "Clear all?"
 msgstr "Effacer l'historique ?"
 
-#: extension.js:674
+#: extension.js:737
 msgid "Are you sure you want to delete all clipboard items?"
 msgstr "Êtes-vous sûr de vouloir vider le presse-papiers ?"
 
-#: extension.js:675
+#: extension.js:738
 msgid "This operation cannot be undone."
 msgstr "Cette action ne peut être annulée."
 
-#: extension.js:677
+#: extension.js:740
 msgid "Clear"
 msgstr "Effacer"
 
-#: extension.js:677 extension.js:848
+#: extension.js:740 extension.js:911
 msgid "Cancel"
 msgstr "Annuler"
 
-#: extension.js:692
+#: extension.js:755
 msgid "Clipboard history cleared"
 msgstr "L'historique du presse-papiers a été effacé"
 
-#: extension.js:695
+#: extension.js:758
 #, fuzzy
 msgid "Clipboard history cleared automatically"
 msgstr "L'historique du presse-papiers a été effacé"
 
-#: extension.js:847
+#: extension.js:910
 msgid "Copied to clipboard"
 msgstr "Copié dans le presse-papiers"
 
@@ -204,7 +222,9 @@ msgstr "Utiliser un emplacement de stockage personnalisé"
 
 #: prefs.js:151
 msgid "Store clipboard history in a custom folder instead of ~/.cache/"
-msgstr "Stocker l'historique du presse-papiers dans un dossier personnalisé au lieu de ~/.cache/"
+msgstr ""
+"Stocker l'historique du presse-papiers dans un dossier personnalisé au lieu "
+"de ~/.cache/"
 
 #: prefs.js:155
 msgid "Storage folder"
@@ -323,31 +343,57 @@ msgstr ""
 msgid "Search applications..."
 msgstr ""
 
-#: qrcode.js:35
-#, fuzzy
-msgid "Clipboard Indicator Plus"
-msgstr "Clipboard Indicator Plus"
+#: qrcode.js:103
+msgid "Share clipboard between devices"
+msgstr ""
 
-#: qrcode.js:36
-msgid "Manage and access your copied items"
-msgstr "Gérer et accéder à vos éléments copiés"
+#: qrcode.js:104
+msgid "From Laptop"
+msgstr ""
 
-#: qrcode.js:37
-msgid "Last Copied Text"
-msgstr "Dernier texte copié"
+#: qrcode.js:105 qrcode.js:111
+msgid "Send to Laptop"
+msgstr ""
 
-#: qrcode.js:38
-msgid "Fetched just now"
-msgstr "Récupéré à l'instant"
-
-#: qrcode.js:39
+#: qrcode.js:106
 msgid "Copy Text"
 msgstr "Copier le texte"
 
-#: qrcode.js:40
+#: qrcode.js:107
 msgid "Copied!"
 msgstr "Copié !"
 
-#: qrcode.js:41
-msgid "Tap text to select if button doesn't work"
-msgstr "Appuyez sur le texte pour sélectionner si le bouton ne fonctionne pas"
+#: qrcode.js:108
+msgid "Sent!"
+msgstr ""
+
+#: qrcode.js:109
+msgid "Sending..."
+msgstr ""
+
+#: qrcode.js:110
+#, fuzzy
+msgid "Type or paste text here..."
+msgstr "Tapez pour rechercher..."
+
+#: qrcode.js:112
+#, fuzzy
+msgid "Connected to same WiFi network"
+msgstr "Scannez le QR ou tapez l'URL sur le même réseau WiFi"
+
+#, fuzzy
+#~ msgid "Clipboard Indicator Plus"
+#~ msgstr "Clipboard Indicator Plus"
+
+#~ msgid "Manage and access your copied items"
+#~ msgstr "Gérer et accéder à vos éléments copiés"
+
+#~ msgid "Last Copied Text"
+#~ msgstr "Dernier texte copié"
+
+#~ msgid "Fetched just now"
+#~ msgstr "Récupéré à l'instant"
+
+#~ msgid "Tap text to select if button doesn't work"
+#~ msgstr ""
+#~ "Appuyez sur le texte pour sélectionner si le bouton ne fonctionne pas"
