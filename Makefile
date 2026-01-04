@@ -1,4 +1,4 @@
-MODULES = *.js locale/*/LC_MESSAGES/*.mo metadata.json stylesheet.css LICENSE.rst README.rst schemas/
+MODULES = *.js locale/*/LC_MESSAGES/*.mo metadata.json stylesheet.css LICENSE README.rst schemas/
 INSTALLPATH=~/.local/share/gnome-shell/extensions/clipboard-indicator-plus/
 
 all: compile-locales compile-settings
@@ -18,7 +18,8 @@ update-po-files:
 install: all
 	rm -rf $(INSTALLPATH)
 	mkdir -p $(INSTALLPATH)
-	cp -r $(MODULES) $(INSTALLPATH)/
+	cp -r *.js metadata.json stylesheet.css LICENSE README.rst schemas/ $(INSTALLPATH)/
+	cp -r locale/ $(INSTALLPATH)/
 
 nested-session:
 	dbus-run-session -- env MUTTER_DEBUG_NUM_DUMMY_MONITORS=1 \
