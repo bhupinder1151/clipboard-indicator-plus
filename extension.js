@@ -587,7 +587,7 @@ const ClipboardIndicator = GObject.registerClass({
                 style_class: 'ci-action-btn',
                 can_focus: true,
                 child: new St.Icon({
-                    icon_name: 'insert-image-symbolic',
+                    icon_name: 'emblem-shared-symbolic',
                     style_class: 'system-status-icon'
                 }),
                 x_align: Clutter.ActorAlign.END,
