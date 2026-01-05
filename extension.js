@@ -258,7 +258,7 @@ const ClipboardIndicator = GObject.registerClass({
         this.syncMenuItem = new PopupMenu.PopupMenuItem(_('Receive Text'));
         this.syncMenuItem.insert_child_at_index(
             new St.Icon({
-                icon_name: 'go-bottom-symbolic',
+                icon_name: 'folder-download-symbolic',
                 style_class: 'clipboard-menu-icon',
                 y_align: Clutter.ActorAlign.CENTER
             }),
@@ -688,13 +688,10 @@ const ClipboardIndicator = GObject.registerClass({
 
     async _openClipboardSync() {
         try {
-            // Get current clipboard text (if any)
-            const currentText = this._getCurrentClipboardText();
-
-            // Start server with callback for receiving text
-            const serverUrl = this.textServer.start(currentText, (receivedText) => {
+            // Start server in receive-only mode (no "From Laptop" card)
+            const serverUrl = this.textServer.start('', (receivedText) => {
                 this.#handleReceivedText(receivedText);
-            });
+            }, true);  // receiveOnly = true
 
             if (!serverUrl) {
                 this._showNotification(_('Failed to start sync server'));

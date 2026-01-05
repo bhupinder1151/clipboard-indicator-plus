@@ -18,20 +18,23 @@ export class TextServer {
     #text = '';
     #port = DEFAULT_PORT;
     #onTextReceived = null;
+    #receiveOnly = false;
 
     /**
      * Start serving the given text
      * @param {string} text - Text to serve (can be empty for receive-only mode)
      * @param {Function} onTextReceived - Callback when text is received from phone
+     * @param {boolean} receiveOnly - If true, only show "Send to Laptop" section
      * @returns {string|null} - URL to access the text, or null on failure
      */
-    start(text, onTextReceived = null) {
+    start(text, onTextReceived = null, receiveOnly = false) {
         if (this.#server) {
             this.stop();
         }
 
         this.#text = text || '';
         this.#onTextReceived = onTextReceived;
+        this.#receiveOnly = receiveOnly;
         this.#server = new Soup.Server();
 
         // Add handler for root path (GET - show page)
@@ -106,7 +109,7 @@ export class TextServer {
     }
 
     #serveHtmlPage(msg) {
-        const titleStr = _('Clipboard Sync');
+        const titleStr = _('Clipboard Indicator Plus');
         const subtitleStr = _('Share clipboard between devices');
         const fromLaptopStr = _('From Laptop');
         const toLaptopStr = _('Send to Laptop');
@@ -118,7 +121,8 @@ export class TextServer {
         const sendBtnStr = _('Send to Laptop');
         const hintStr = _('Connected to same WiFi network');
 
-        const hasText = this.#text && this.#text.length > 0;
+        // Show "From Laptop" card only if we have text AND not in receive-only mode
+        const showFromLaptop = !this.#receiveOnly && this.#text && this.#text.length > 0;
 
         const html = `<!DOCTYPE html>
 <html>
@@ -203,7 +207,7 @@ export class TextServer {
         <p>${subtitleStr}</p>
     </div>
     
-    ${hasText ? `
+    ${showFromLaptop ? `
     <div class="card">
         <div class="card-header">
             <span class="card-title">${fromLaptopStr}</span>
@@ -221,6 +225,7 @@ export class TextServer {
     </div>
     ` : ''}
     
+    ${this.#receiveOnly ? `
     <div class="card">
         <div class="card-header">
             <span class="card-title">${toLaptopStr}</span>
@@ -237,6 +242,7 @@ export class TextServer {
             </button>
         </div>
     </div>
+    ` : ''}
     
     <p class="hint">✓ ${hintStr}</p>
     
@@ -267,45 +273,64 @@ export class TextServer {
                     copyBtn.classList.remove('success');
                 }, 2000);
             });
+            
+            // Auto-resize laptopText textarea on load
+            function autoResizeLaptopText() {
+                laptopText.style.height = 'auto';
+                const newHeight = Math.max(120, Math.min(laptopText.scrollHeight, window.innerHeight * 0.5));
+                laptopText.style.height = newHeight + 'px';
+            }
+            window.addEventListener('load', () => setTimeout(autoResizeLaptopText, 100));
+            window.addEventListener('resize', autoResizeLaptopText);
         }
         
-        sendBtn.addEventListener('click', async () => {
-            const text = phoneText.value.trim();
-            if (!text) return;
-            
-            sendBtn.disabled = true;
-            sendBtn.innerHTML = icons.send + ' ${sendingStr}';
-            status.className = 'status';
-            status.textContent = '';
-            
-            try {
-                const response = await fetch(window.location.href, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'text=' + encodeURIComponent(text)
-                });
-                const result = await response.json();
-                if (result.success) {
-                    status.className = 'status success';
-                    status.textContent = '${sentStr}';
-                    sendBtn.innerHTML = icons.check + ' ${sentStr}';
-                    sendBtn.classList.add('success');
-                    phoneText.value = '';
-                    setTimeout(() => {
-                        sendBtn.innerHTML = icons.send + ' ${sendBtnStr}';
-                        sendBtn.classList.remove('success');
-                        sendBtn.disabled = false;
-                    }, 2000);
-                } else {
-                    throw new Error(result.error || 'Failed');
+        if (sendBtn && phoneText) {
+            sendBtn.addEventListener('click', async () => {
+                const text = phoneText.value.trim();
+                if (!text) return;
+                
+                sendBtn.disabled = true;
+                sendBtn.innerHTML = icons.send + ' ${sendingStr}';
+                status.className = 'status';
+                status.textContent = '';
+                
+                try {
+                    const response = await fetch(window.location.href, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: 'text=' + encodeURIComponent(text)
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        status.className = 'status success';
+                        status.textContent = '${sentStr}';
+                        sendBtn.innerHTML = icons.check + ' ${sentStr}';
+                        sendBtn.classList.add('success');
+                        phoneText.value = '';
+                        setTimeout(() => {
+                            sendBtn.innerHTML = icons.send + ' ${sendBtnStr}';
+                            sendBtn.classList.remove('success');
+                            sendBtn.disabled = false;
+                        }, 2000);
+                    } else {
+                        throw new Error(result.error || 'Failed');
+                    }
+                } catch (e) {
+                    status.className = 'status error';
+                    status.textContent = 'Error: ' + e.message;
+                    sendBtn.innerHTML = icons.send + ' ${sendBtnStr}';
+                    sendBtn.disabled = false;
                 }
-            } catch (e) {
-                status.className = 'status error';
-                status.textContent = 'Error: ' + e.message;
-                sendBtn.innerHTML = icons.send + ' ${sendBtnStr}';
-                sendBtn.disabled = false;
+            });
+            
+            // Auto-resize phoneText textarea as user types
+            function autoResizePhoneText() {
+                phoneText.style.height = 'auto';
+                const newHeight = Math.max(120, Math.min(phoneText.scrollHeight, window.innerHeight * 0.4));
+                phoneText.style.height = newHeight + 'px';
             }
-        });
+            phoneText.addEventListener('input', autoResizePhoneText);
+        }
     </script>
 </body>
 </html>`;
